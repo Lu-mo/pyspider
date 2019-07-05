@@ -1,0 +1,97 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+# Created on 2019-06-29 23:39:45
+# Project: sex8
+
+from pyspider.libs.base_handler import *
+import cfscrape
+import requests
+import time
+import random
+
+class Handler(BaseHandler):
+    crawl_config = {
+        "headers":
+        {
+            "Host": "sex8.cc",
+            "Proxy-Connection": "keep-alive",
+            "Cache-Control": "max-age=0",
+            #"Upgrade-Insecure-Requests": 1,
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+            #"Accept": "text/html,application/xhtml+xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+            "Referer": "http://sex8.cc/forum.php?mod=forumdisplay&fid=400&filter=typeid&typeid=3044",
+            #"Accept-Encoding": "gzip, deflate",
+            #"Accept-Language": "zh-CN,zh;q=0.9,ja-JP;q=0.8,ja;q=0.7",
+            "Cookie": "__cfduid=dc821dfedd7e02cb4708984ac0cb560301561077510; _ga=GA1.2.871969176.1561077509; visid_incap_2101966=U5I99B5SSY6XEyApwmg3KTHZFl0AAAAAQUIPAAAAAACv++HYCMDItY5at65yQNQX; __insp_uid=1324412832; A8tI_2132_lastvisit=1561959558; A8tI_2132_saltkey=xTTedTeP; A8tI_2132_visitedfid=400; A8tI_2132_smile=2D1; A8tI_2132_atarget=1; A8tI_2132_mapiurl=https%3A%2F%2Fim01_prod_mserver.motesiji.info%2F; A8tI_2132_self_fid=400; A8tI_2132_self_unique_code=7090a261-c213-6aea-cdb1-d36838c70dbd; cus_cookie=3; _gid=GA1.2.1968266787.1562198062; A8tI_2132_ignore_notice=1; __insp_wid=1313504860; __insp_nv=false; __insp_targlpu=aHR0cDovL3NleDguY2MvZm9ydW0ucGhwP21vZD1mb3J1bWRpc3BsYXkmZmlkPTQwMCZmaWx0ZXI9dHlwZWlkJnR5cGVpZD0zMDQ0; __insp_targlpt=6Ieq5oWw5YKs55ygIC0g5p2P5ZCnX_aAp_WQp19zZXg4X_adj_WQp_acieS9oOaYpeaaluiKseW8gFZJUOeLrOS6qy3nlLXlj7Dlo7DkvJjkvZPpqozljLp8U2VpeXV1IFByZXZpZXct5p2P5ZCn6K665Z2bLeaAp_WQp_aIkOS6uuiuuuWdmyzlvq7mnY9BUFA%3D; __insp_norec_howoften=true; __insp_norec_sess=true; A8tI_2132_auth=c136S20bMaZKwcU7LMdN2fW%2BeBr5CPOhT8nrCCNc9Vk%2FzgCGAwhUxl1V2iRPBCK9gPoeB3RD10UY0TDWcXGhiHHSG1aMobk; A8tI_2132_staticlogin=1; A8tI_2132_lastcheckfeed=158107391%7C1562198077; A8tI_2132_lip=8.8.8.8%2C1562198077; A8tI_2132_chatmemberinfo=2yNiR%2FGhUuqstzGxP%2BqHsAwv1ctzKh3QAEA2lguB3Kidsb7r3L1U0cRNTrrLoMtBaSpLHT6IsVZBvHGanBug9sfWBFFTPoukbXk4dI0ljJK22446lrXZg9qr93TDSURoC17uNYtPZ7ZEPSkz3AnhbyIsvFL0T8gRkmWX5Jqk76COyfzdsZmNOKdPCTo9Mbqy1uSW8WIUIwB8HLOk0NsZfeciPrgsEys%2BtPKKi3nuN3C%2FjZv%2FkC39xLBrSUQ5GDZ%2BqISa2kh7aJ1NXo0GaO9RQ5DQMMbBV0NRSDTXjzbpe0TKLk6TKYEhrHp2gc0qCHjKnZm20bR01samiQqUTj5q1yQMOlPpT9SOMXWOD5PYEvTKgFfb5gSjEvwV6NKYDmFN; A8tI_2132_chatroominfo=%7B%22mapiurl%22%3A%22https%3A%5C%2F%5C%2Fim01_prod_mserver.motesiji.info%5C%2F%22%2C%22uid%22%3A158107391%2C%22mphoto%22%3A%22https%3A%5C%2F%5C%2Fimages.nvshenim.info%5C%2F28a2821c4f5c644e11b1034d6a7b647d-60-60.jpg%22%2C%22muser%22%3A%22wssgyy1%22%7D; A8tI_2132_adv_gid=18; A8tI_2132_noticeTitle=1; A8tI_2132_self_uid=158107391; A8tI_2132_self_tid=-1; __insp_slim=1562198353123; A8tI_2132_ulastactivity=1562198378%7C0; A8tI_2132_st_t=158107391%7C1562198392%7C1cfa08c4ce024bfb519c05d9f79b0526; A8tI_2132_forum_lastvisit=D_400_1562198392; A8tI_2132_lastact=1562198502%09forum.php%09viewthread; A8tI_2132_st_p=158107391%7C1562198502%7C0f3a075e310de767110d0cf73d9b3a82; A8tI_2132_viewid=tid_12415430"
+
+        },
+        #"timeout": "1000",
+        #"cookies" : Cookie
+        "connect_timeout" : 60,
+        "proxy" : "172.16.173.179:1080",       
+        "timeout" : 200
+    
+    }
+
+    @every(minutes=24 * 60)
+    def on_start(self):
+        #session = requests.session()
+        #session.headers = self.crawl_config["headers"]
+        #session.proxies = 
+        #{
+        #    "http:":self.crawl_config["proxy"],
+        #}
+        #scraper = cfscrape.create_scraper(delay=10,sess=session)  # returns a CloudflareScraper instance
+        #return self.crawl_config["proxy"]
+        #resultdb = connect_database("sqlite+resultdb:///data/result.db")
+        #resultdb._delete(resultdb._tablename(self.project_name), '1=1')
+        #       'http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3044&typeid=3044&filter=typeid&page=2'
+                #'http://sex8.cc/forum.php?mod=forumdisplay&fid=400&filter=typeid&typeid=3044'
+        #http://sex8.cc/forum.php?mod=forumdisplay&fid=400&filter=typeid&typeid=3046 骚麦
+        #http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3046&typeid=3046&filter=typeid&page=2
+
+
+        #return scraper.get("http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3046&typeid=3046&filter=typeid&page=2").content  # => "<!DOCTYPE html><html><head>..."
+        url='http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3042&typeid=3042&filter=typeid&page='
+        urls = {
+            'http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3042&typeid=3042&filter=typeid&page=3',
+            'http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3042&typeid=3042&filter=typeid&page=4',
+            'http://sex8.cc/forum.php?mod=forumdisplay&fid=400&typeid=3042&typeid=3042&filter=typeid&page=5'
+        }
+        for each in range(11,21):
+            self.crawl(url+str(each), callback=self.index_page,validate_cert=False)
+        
+    #@config(age=24 * 60 )#* 60 * 10)
+    
+    @config(priority=1)
+    def index_page(self, response):
+        #return response.doc
+        #return response.doc(').attr.href
+        for each in response.doc('a[onclick^="atarget(this)"]').items():
+            #return each.attr.href
+            #time.sleep(random.randint(1,5))
+            self.crawl(each.attr.href, callback=self.detail_page, validate_cert=False,exetime=time.time()+random.randint(1,5))
+            
+
+    @config(priority=2)
+    def detail_page(self, response):
+        #response.doc('audio[class^="radio-player"]')
+        windowM3u8src=""
+        mp3src=""
+        mp3src=response.doc('audio').attr.src
+        each = response.doc('audio[class^="radio-player"]')
+        windowM3u8src=each.siblings().text()
+        windowM3u8src=windowM3u8src[16:-2]
+        if response.doc('span[id^="thread_subject"]').siblings().text().find("[") == -1:
+            text="["+response.doc('span[id^="thread_subject"]').siblings().text().replace("\n","")+"]"+response.doc('span[id^="thread_subject"]').text()
+        else:
+            text=response.doc('span[id^="thread_subject"]').siblings().text().replace("\n","")+response.doc('span[id^="thread_subject"]').text()
+        if mp3src is None:
+            mp3src=""
+        return {
+            "windowM3u8src":windowM3u8src,
+            "url": response.url,
+            "mp3src":mp3src,
+            #"title": response.doc('title').text(),
+            "text":text
+        }
